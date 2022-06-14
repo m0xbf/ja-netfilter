@@ -1,31 +1,31 @@
 # ja-netfilter 2022.2.0
 
-### A Java Instrumentation Framework
+### A Java 框架
 
-## Usage
+## 使用方法
 
-* download from the [releases page](https://gitee.com/ja-netfilter/ja-netfilter/releases)
-* add `-javaagent:/absolute/path/to/ja-netfilter.jar` argument (**Change to your actual path**)
-    * add as an argument of the `java` command. eg: `java -javaagent:/absolute/path/to/ja-netfilter.jar -jar executable_jar_file.jar`
+* 从[releases 页面](https://gitee.com/ja-netfilter/ja-netfilter/releases)下载
+* 添加 `-javaagent:/aplute/path/to/ja-netfilter.jar` 参数 (**更改您的实际路径**)
+    * 添加为`java`命令的参数。例如: `java -javaagent:/aplute/path/to/ja-netfilter.jar -jar executable_jar_file.jar`
     * some apps support the `JVM Options file`, you can add as a line of the `JVM Options file`.
-    * **WARNING: DO NOT put some unnecessary whitespace characters!**
-* or execute `java -jar /path/to/ja-netfilter.jar` to use `attach mode`.
-* for **Java 17** you have to add at least these `JVM Options`:
+    * **警告: 不要放一些不必要的空格!**
+* 或执行 `java -jar /path/to/ja-netfilter.jar` 以使用 `attach mode`.
+* 对于 **Java 17** 你得添加以下 `JVM Options`:
 
   ```
   --add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
   --add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
   ```
 
-* edit your plugin config files: `${lower plugin name}.conf` file in the `config` dir where `ja-netfilter.jar` is located.
-* the `config`, `logs` and `plugins` directories can be specified through **the javaagent args**.
-  * eg: `-javaagent:/path/to/ja-netfilter.jar=appName`, your config, logs and plugins directories will be `config-appname`, `logs-appname` and `plugins-appname`.
-  * if no javaagent args, they default to `config`, `logs` and `plugins`.
-  * this mechanism will avoid extraneous and bloated `config`, `logs` and `plugins`.
+* 编辑你的插件配置文件: `${lower plugin name}.conf` 所在的 `config` dir 中的 `ja-netfilter.jar` 文件。
+* `config`, `logs` 和plugins` 目录可被**the javaagent args**目录指定。
+  * 例如: `-javaagent:/path/to/ja-netfilter.jar=appName`, 你的配置，日志和插件目录将是 `config-appname`, `logs-appname` plugins-appname`。
+  * 如果没有 javaagent args, 他们会默认为 `config`, `logs` 和plugins`.
+  * this mechanism will avoid extraneous and bloated `config`, `logs` 和`plugins`.
 
-* run your java application and enjoy~
+* 现在你的运行java应用程序吧~
 
-## Config file format
+## 配置文件格式
 
 ```
 [ABC]
@@ -50,31 +50,31 @@ EQUAL,somedomain
 ```
 
 
-## Debug info
+## Debug信息
 
 * the `ja-netfilter` will **NOT** output debugging information by default
 * add environment variable `JANF_DEBUG=1` (log level) and start to enable it
 * or add system property `-Djanf.debug=1` (log level) to enable it
 * log level: `NONE=0`, `DEBUG=1`, `INFO=2`, `WARN=3`, `ERROR=4`
 
-## Debug output
+## Debug输出
 
 * the `ja-netfilter` will output debugging information to the `console` by default
-* add environment variable `JANF_OUTPUT=value` and start to change output medium
-* or add system property `-Djanf.output=value` to change output medium
-* output medium value: [`NONE=0`, `CONSOLE=1`, `FILE=2`, `CONSOLE+FILE=3`, `WITH_PID=4`]
+* add environment variable `JANF_OUTPUTplue` and start to change output medium
+* or add system property `-Djanf.outputplue` to change output medium
+* output mediumplue: [`NONE=0`, `CONSOLE=1`, `FILE=2`, `CONSOLE+FILE=3`, `WITH_PID=4`]
 * eg: `console` + `file` + `pid file name` = 1 + 2 + 4 = 7, so the `-Djanf.output=7`
 
-## Plugin system
+## 插件系统
 
-* for developer:
-    * view the [scaffold project](https://gitee.com/ja-netfilter/ja-netfilter-sample-plugin) written for the plugin system
-    * compile your plugin and publish it
-    * just use your imagination~
+* 对于开发人员:
+    * 查看[scaffold project](https://gitee.com/ja-netfilter/ja-netfilter-sample-plugin)
+    * 编译插件并发布
+    * 发挥想象力~
 
-* for user:
-    * download the jar file of the plugin
-    * put it in the subdirectory called `plugins` where the ja-netfilter.jar file is located
+* 对于普通用户:
+    * 下载jar文件
+    * 把它放在ja-netfilter.jar文件所在的“p pplu
     * enjoy the new capabilities brought by the plugin
-    * if the file suffix is `.disabled.jar`, the plugin will be disabled
+    * if the file suffix is `.disabled.jar`, thplugin will be disabled
    
