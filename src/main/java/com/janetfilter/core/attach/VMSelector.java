@@ -4,7 +4,12 @@ import com.janetfilter.core.utils.DateUtils;
 import com.janetfilter.core.utils.ProcessUtils;
 import com.janetfilter.core.utils.WhereIsUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -62,44 +67,26 @@ public class VMSelector {
                 System.out.println("  =========================== " + DateUtils.formatDateTime() + " ============================");
                 select();
                 return;
-            case "":
-                processSelect();
-                return;
             default:
-                int index;
+                VMDescriptor targetVmDescriptor;
                 try {
-                    index = Integer.parseInt(input);
-                } catch (NumberFormatException e) {
-                    invalidInput(input);
-                    return;
-                }
-
-                if (index < 1) {
-                    invalidInput(input);
-                    return;
-                }
-
-                if (index > descriptors.size()) {
-                    invalidInput(input);
+                    int seq = Integer.parseInt(input);
+                    targetVmDescriptor = descriptors.get(seq - 1);
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    System.err.println("> Invalid input: " + input);
+                    processSelect();
                     return;
                 }
 
                 System.out.print("  Agent args: ");
                 input = getInput();
                 try {
-                    VMLauncher.launch(thisJar, descriptors.get(index - 1), input);
+                    VMLauncher.launch(thisJar, targetVmDescriptor, input);
                 } catch (Exception e) {
-                    System.err.println("> Attach to: " + index + " failed.");
+                    System.err.println("> Attach failed.");
                     e.printStackTrace(System.err);
-                    return;
                 }
-                break;
         }
-    }
-
-    private void invalidInput(String input) throws Exception {
-        System.err.println("> Invalid input: " + input);
-        processSelect();
     }
 
     public void select() throws Exception {
