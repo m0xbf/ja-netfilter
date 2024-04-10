@@ -27,6 +27,10 @@ public class Launcher {
         }
 
         String jarPath = jarURI.getPath();
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win")) {
+            jarPath = jarPath.substring(1).replace("/", "\\");
+        }
         if (args.length > 1 && args[0].equals(ATTACH_ARG)) {
             VMLauncher.attachVM(jarPath, args[1], args.length > 2 ? args[2] : null);
             return;
